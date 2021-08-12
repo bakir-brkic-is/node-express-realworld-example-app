@@ -1,7 +1,7 @@
 FROM node
 
 ENV NODE_ENV=production
-ENV MONGODB_URI=mongodb://localhost/conduit
+# ENV MONGODB_URI=mongodb://localhost/conduit
 
 RUN useradd nodeuser -m -d /usr/src/app
 
