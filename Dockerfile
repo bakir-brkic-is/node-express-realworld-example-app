@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node
 
 ENV NODE_ENV=production
 ENV MONGODB_URI=mongodb://localhost/conduit
