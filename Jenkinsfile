@@ -9,6 +9,7 @@ pipeline {
 
     environment {
         MONGODB_URI='mongodb://localhost:27017/'
+        SECRET='secretHasToBeSet'
     }
     
     stages {
@@ -20,7 +21,7 @@ pipeline {
         stage('Docker run container') {
             steps {
                 sh "docker rm -f express-backend"
-                sh "docker run -d -p 3000:3000 --name express-backend -e MONGODB_URI=${MONGODB_URI} expressbackend:${env.BUILD_ID}"
+                sh "docker run -d -p 3000:3000 --name express-backend -e MONGODB_URI=${MONGODB_URI} -e SECRET=${SECRET} expressbackend:${env.BUILD_ID}"
             }
         }
     }
