@@ -4,7 +4,8 @@ node_js: "8"
 sudo: required
 services: mongodb
 
-install: yarn
+install:
+- npm ci
 
 before_script: yarn start & sleep 5
 script: yarn test
