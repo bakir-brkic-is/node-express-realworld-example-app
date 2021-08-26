@@ -31,8 +31,8 @@ if (!isProduction) {
 }
 
 if(isProduction){
-  mongoose.connect(process.env.MONGODB_URI);
-  console.log(process.env.MONGODB_URI);
+  //MONGODB_URI="mongodb://root:${MONGO_INITDB_ROOT_PASSWORD}@host.docker.internal:27017/"
+  mongoose.connect("mongodb://root:" + process.env.MONGO_INITDB_ROOT_PASSWORD + "@" + process.env.MONGO_MONGODB_SERVICE_HOST + ":" + process.env.MONGO_MONGODB_SERVICE_PORT + "/");
 } else {
   mongoose.connect('mongodb://localhost/conduit');
   mongoose.set('debug', true);
