@@ -3,3 +3,6 @@ npm-debug.log
 .git
 .gitignore
 README.md
+Jenkinsfile
+Dockerfile
+Dockerfile.distroless
