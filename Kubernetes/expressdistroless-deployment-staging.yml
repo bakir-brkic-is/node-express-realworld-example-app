@@ -1,0 +1,8 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: express-backend-distroless
+  name: express-backend-distroless-deployment
+spec:
+  replicas: 2

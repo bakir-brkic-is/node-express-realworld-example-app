@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: express-backend-distroless-service
+spec:
+  selector:
+    app: express-backend-distroless
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 2000
+      nodePort: 30006
