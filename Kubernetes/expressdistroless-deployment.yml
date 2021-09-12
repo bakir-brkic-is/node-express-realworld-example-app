@@ -1,0 +1,64 @@
+# deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: express-backend-distroless-deployment
+  labels:
+    app: express-backend-distroless
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: express-backend-distroless
+  template:
+    metadata:
+      labels:
+        app: express-backend-distroless
+    spec:
+      containers:
+      - name: express-backend-distroless
+        # image: brrx387/node-express-real-world-example-app:latest
+        image: expressbackend-distroless:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 2000
+        # resources:
+        #   requests:
+        #     memory: "64Mi"
+        #     cpu: "250m"
+        #   limits:
+        #     memory: "128Mi"
+        #     cpu: "500m"
+        env:
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key:  mongodb-root-password
+        - name: MONGODB_URI
+          valueFrom:
+            configMapKeyRef:
+              name: mongodb-configmap
+              key:  database_url
+        - name: SECRET
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key:  backendsecret
+        - name: PORT
+          value: '2000'
+---
+# service
+apiVersion: v1
+kind: Service
+metadata:
+  name: express-backend-distroless-service
+spec:
+  selector:
+    app: express-backend-distroless
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 2001
+      targetPort: 2000
+      nodePort: 30005
